@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset=utf-8>
+        <title>three.js app</title>
+        <style>body{margin: 0;}</style>
+        <link href="style/style.css" rel="stylesheet" type="text/css">
+    </head>
+    <body>
+        <div id="bottom">
+            <div>
+                <button id="bernstein">Berstein</button>
+                <button id="decasteljau">Decasteljau</button>
+            </div>
+            <form id="formCheckboxes">
+                <input type="checkbox" id="courbe1" name="Courbe 1">
+                <label id="select1" for="courbe1">Courbe 1</label>
+                <input type="checkbox" id="courbe2" name="Courbe 2">
+                <label id="select2" for="courbe2">Courbe 2</label>
+                <input type="checkbox" id="courbe3" name="Courbe 3">
+                <label id="select3" for="courbe3">Courbe 3</label>
+            </form>
+            <div>
+                <button id="new">Nouvelle courbe</button>
+            </div>
+        </div>
+
+        <div id="points"></div>
+
+        <div id="curseurs">
+            <input type="range" id="curseurX" name="curseurX"
+                   min="0" max="1000">
+            <label for="curseurX">X</label>
+
+            <input type="range" id="curseurY" name="curseurY"
+                   min="0" max="500">
+            <label for="curseurY">Y</label>
+
+            <input type="range" id="curseurRot" name="curseurRot"
+                   min="0" max="200">
+            <label for="curseurRot">Rotation</label>
+        </div>
+
+<!--        on place l'image de la poubelle en absolute au dessus du graphique car impossible de charger-->
+<!--        une texture sur une mesh dans threejs en front-end uniquement, on a des CORS policy errors-->
+<!--        il faudrait pour cela un serveur-->
+        <img src="img/trash.png" id="trash" alt="Trash">
+
+        <script src="lib/three.js"></script>
+        <script src="js/maj.js"></script>
+        <script src="js/creationCourbeBernstein.js"></script>
+        <script src="js/creationCourbeDecasteljau.js"></script>
+        <script src="js/drag&drop.js"></script>
+        <script src="lib/DragControls.js"></script>
+        <script src="js/affichagePoints.js"></script>
+        <script src="js/affichageEx.js"></script>
+        <script src="js/transformations.js"></script>
+        <script src="js/courbesBezier.js"></script>
+    </body>
+</html>

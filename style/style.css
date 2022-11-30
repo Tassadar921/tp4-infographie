@@ -1,0 +1,39 @@
+#trash{
+    position:absolute;
+    width:50px;
+    display:none;
+    right:20px;
+    top:20px;
+    pointer-events: none;
+}
+
+#points{
+    position:absolute;
+    width:auto;
+    padding-left: 5px;
+    right:0px;
+    top : 20%;
+    background-color: white;
+}
+
+#curseurs{
+    position:absolute;
+    width:auto;
+    padding-left: 5px;
+    left: 0;
+    top : 0;
+    background-color: white;
+}
+
+#curseurs input{
+    margin-left: 30px;
+}
+
+#bottom{
+    color:white;
+    position:absolute;
+    width:auto;
+    height:auto;
+    bottom:0;
+    background-color: black;
+}
