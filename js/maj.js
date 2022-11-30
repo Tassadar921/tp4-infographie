@@ -3,15 +3,20 @@
 function chargeDraw(pointsControle, methode, addingPoint = false) {
     let geometry;
     let drawing;
+    let noeuds = new Array;
+    
+    for(let i = 0; i < pointsControle.length+degre+1; i++) {//calcul du vecteur des noeuds
+        noeuds.push((1/(degre + pointsControle.length))*i);
+    }
 
     let points = [];
 
-    switch (methode) {
-        case 'bernstein':
-            points = createBernstein(pointsControle);
+    switch (methode) {//choix de la méthode
+        case 'base':
+            points = createBase(pointsControle, degre, noeuds);
             break;
-        case 'decasteljau':
-            points = createDecastlejau(pointsControle);
+        case 'boor':
+            points = createBoor(pointsControle, degre, noeuds);
             break;
     }
 

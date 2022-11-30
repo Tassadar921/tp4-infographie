@@ -32,27 +32,27 @@ refresh = (checked) => {//met à jour l'affichage et si ui ou non une courbe est
     setupAffichagePoints();//affiche les coordonnées des points
 };
 
-document.getElementById("bernstein").style = "background-color: lightgrey;";//courbe bernstein de base grisé
+document.getElementById("base").style = "background-color: lightgrey;";//courbe bernstein de base grisé
 
-document.getElementById("bernstein").addEventListener("click",(event)=>{//si on utilise la méthode de berntein
+document.getElementById("base").addEventListener("click",(event)=>{//si on utilise la méthode de berntein
     clearSceneChildren();//remise à zero
-    methode = "bernstein";//utilisation de la méthode de bernstein
+    methode = "base";//utilisation de la méthode de bernstein
     for(let i = 0; i < nbCourbes; i++){
         if(document.getElementById("courbe"+(i+1)).checked) miseAJour(chargeDraw(tabPointsControle[i], methode));//met à jour la courbe à dessiner
     }
-    document.getElementById("bernstein").style = "background-color: lightgrey;";//courbe bernstein de base grisé
-    document.getElementById("decasteljau").style = "";//courbe decastlejau normal
+    document.getElementById("base").style = "background-color: lightgrey;";//courbe bernstein de base grisé
+    document.getElementById("boor").style = "";//courbe decastlejau normal
     refresh(true);//refresh pour afficher correctement
 });
 
-document.getElementById("decasteljau").addEventListener("click",(event)=>{
+document.getElementById("boor").addEventListener("click",(event)=>{
     clearSceneChildren();//remise à zero
-    methode = "decasteljau";//utilisation de la méthode de decasteljau
+    methode = "boor";//utilisation de la méthode de decasteljau
     for(let i = 0; i < nbCourbes; i++){
         if(document.getElementById("courbe"+(i+1)).checked) miseAJour(chargeDraw(tabPointsControle[i], methode));//met à jour la courbe à dessiner
     }
-    document.getElementById("bernstein").style = "";//courbe bernstein de base normal
-    document.getElementById("decasteljau").style = "background-color: lightgrey;";//courbe decastlejau de base grisé
+    document.getElementById("base").style = "";//courbe bernstein de base normal
+    document.getElementById("boor").style = "background-color: lightgrey;";//courbe decastlejau de base grisé
     refresh(true);//refresh pour afficher correctement
 });
 
@@ -106,6 +106,18 @@ document.getElementById("courbe3").addEventListener("click",(event)=>{//event li
         unCheckAll(3);//décoche toutes les autres
     }
     refresh(document.getElementById('courbe3').checked);//met à jour le graph
+});
+
+document.getElementById("validerOrdre").addEventListener("click", (e) => {
+    e.preventDefault();
+   const ordre = document.getElementById("ordre").value;
+   if(Number(ordre)>0){
+       degre = Number(ordre-1);
+       majAffichagePoints();
+       majGraphique();
+   }else{
+         alert("Veuillez entrer un ordre > 1");
+   }
 });
 
 document.getElementById("curseurX").addEventListener("mousemove",(event)=>{//fonction de translation sur x

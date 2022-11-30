@@ -9,8 +9,8 @@
     <body>
         <div id="bottom">
             <div>
-                <button id="bernstein">Berstein</button>
-                <button id="decasteljau">Decasteljau</button>
+                <button id="base">Base</button>
+                <button id="boor">Boor</button>
             </div>
             <form id="formCheckboxes">
                 <input type="checkbox" id="courbe1" name="Courbe 1">
@@ -19,6 +19,10 @@
                 <label id="select2" for="courbe2">Courbe 2</label>
                 <input type="checkbox" id="courbe3" name="Courbe 3">
                 <label id="select3" for="courbe3">Courbe 3</label>
+            </form>
+            <form>
+                <label for="ordre">Ordre (degré+1)</label><input id="ordre" placeholder="Ordre (degré+1)">
+                <button id="validerOrdre">Valider</button>
             </form>
             <div>
                 <button id="new">Nouvelle courbe</button>
@@ -48,13 +52,13 @@
 
         <script src="lib/three.js"></script>
         <script src="js/maj.js"></script>
-        <script src="js/creationCourbeBernstein.js"></script>
-        <script src="js/creationCourbeDecasteljau.js"></script>
+        <script src="js/creationCourbeBoor.js"></script>
+        <script src="js/creationCourbeBase.js"></script>
         <script src="js/drag&drop.js"></script>
         <script src="lib/DragControls.js"></script>
         <script src="js/affichagePoints.js"></script>
         <script src="js/affichageEx.js"></script>
         <script src="js/transformations.js"></script>
-        <script src="js/courbesBezier.js"></script>
+        <script src="js/courbesBSplines.js"></script>
     </body>
 </html>
