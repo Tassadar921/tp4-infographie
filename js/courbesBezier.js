@@ -48,5 +48,3 @@ function initialisationCourbes() {
 
     return tabPointControle
 }
-
-document.getElementById("ok");
