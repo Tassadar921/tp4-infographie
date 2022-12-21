@@ -3,20 +3,15 @@
 function chargeDraw(pointsControle, methode, addingPoint = false) {
     let geometry;
     let drawing;
-    let noeuds = new Array;
-    
-    for(let i = 0; i < pointsControle.length+degre+1; i++) {//calcul du vecteur des noeuds
-        noeuds.push((1/(degre + pointsControle.length))*i);
-    }
 
     let points = [];
 
-    switch (methode) {//choix de la méthode
-        case 'base':
-            points = createBase(pointsControle, degre, noeuds);
+    switch (methode) {
+        case 'bernstein':
+            points = createBernstein(pointsControle);
             break;
-        case 'boor':
-            points = createBoor(pointsControle, degre, noeuds);
+        case 'decasteljau':
+            points = createDecastlejau(pointsControle);
             break;
     }
 
@@ -59,6 +54,35 @@ function chargeDraw(pointsControle, methode, addingPoint = false) {
             scene.getObjectById(planeID).add(drawing);
         }
     }
+
+    ////////////////////////// LIGNES ENTRE POINTS DE CONTROLE /////////////////////////////
+
+    geometry = new THREE.BufferGeometry().setFromPoints(points);  // on set le buffer depuis les points retournés par
+    //Decasteljau ou Bernstein
+    drawing = new THREE.Line(geometry, material); // on relie les points grâce à .Line de façon à dessiner la courbe paramétrique
+    drawings.push(drawing);//il sera mis dans la scène plus tard
+
+    return drawings;
+}
+
+//pointsControle contient des Vector3, methode est un string ('bernstein' ou 'decasteljau')
+//addingPoint true ssi on ajoute un point à une courbe déjà affichée, si false alors on affiche une nouvelle courbe
+function chargeDrawAll(pointsControle, methode, addingPoint = false) {
+    let geometry;
+    let drawing;
+
+    let points = [];
+
+    switch (methode) {
+        case 'bernstein':
+            points = createBernstein(pointsControle);
+            break;
+        case 'decasteljau':
+            points = createDecastlejau(pointsControle);
+            break;
+    }
+
+    let drawings = [];//tableau dont les éléments seront ajoutés 1 à 1 dans la scène
 
     ////////////////////////// LIGNES ENTRE POINTS DE CONTROLE /////////////////////////////
 

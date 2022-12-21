@@ -32,27 +32,23 @@ refresh = (checked) => {//met à jour l'affichage et si ui ou non une courbe est
     setupAffichagePoints();//affiche les coordonnées des points
 };
 
-document.getElementById("base").style = "background-color: lightgrey;";//courbe bernstein de base grisé
+document.getElementById("bernstein").style = "background-color: lightgrey;";//courbe bernstein de base grisé
 
-document.getElementById("base").addEventListener("click",(event)=>{//si on utilise la méthode de berntein
+document.getElementById("bernstein").addEventListener("click",(event)=>{//si on utilise la méthode de berntein
     clearSceneChildren();//remise à zero
-    methode = "base";//utilisation de la méthode de bernstein
-    for(let i = 0; i < nbCourbes; i++){
-        if(document.getElementById("courbe"+(i+1)).checked) miseAJour(chargeDraw(tabPointsControle[i], methode));//met à jour la courbe à dessiner
-    }
-    document.getElementById("base").style = "background-color: lightgrey;";//courbe bernstein de base grisé
-    document.getElementById("boor").style = "";//courbe decastlejau normal
+    methode = "bernstein";//utilisation de la méthode de bernstein
+    unCheckAll(IDSelectedCurve+1);
+    document.getElementById("bernstein").style = "background-color: lightgrey;";//courbe bernstein de base grisé
+    document.getElementById("decasteljau").style = "";//courbe decastlejau normal
     refresh(true);//refresh pour afficher correctement
 });
 
-document.getElementById("boor").addEventListener("click",(event)=>{
+document.getElementById("decasteljau").addEventListener("click",(event)=>{
     clearSceneChildren();//remise à zero
-    methode = "boor";//utilisation de la méthode de decasteljau
-    for(let i = 0; i < nbCourbes; i++){
-        if(document.getElementById("courbe"+(i+1)).checked) miseAJour(chargeDraw(tabPointsControle[i], methode));//met à jour la courbe à dessiner
-    }
-    document.getElementById("base").style = "";//courbe bernstein de base normal
-    document.getElementById("boor").style = "background-color: lightgrey;";//courbe decastlejau de base grisé
+    methode = "decasteljau";//utilisation de la méthode de decasteljau
+    unCheckAll(IDSelectedCurve+1);
+    document.getElementById("bernstein").style = "";//courbe bernstein de base normal
+    document.getElementById("decasteljau").style = "background-color: lightgrey;";//courbe decastlejau de base grisé
     refresh(true);//refresh pour afficher correctement
 });
 
@@ -86,6 +82,37 @@ document.getElementById("new").addEventListener("click",(event)=>{//fonction d'a
     refresh(document.getElementById('courbe'+nbCourbes).checked);//coche la nouvelle courbe
 });
 
+document.getElementById("all").addEventListener("click",(event)=>{//fonction d'ajout d'une nouvelle courbe
+    material = new THREE.LineBasicMaterial({color: randomColor()});
+    material2 = new THREE.LineBasicMaterial({color: randomColor()});
+    materialPoints = new THREE.PointsMaterial({color: randomColor(), size : 0.15});//génère de nouvelles couleurs
+
+    scene = new THREE.Scene();//création d'une nouvelle scène
+    scene.add(configPlane());//ajout du plan des points à la scène
+    renderer.render(scene, camera);//render de la scene
+
+    tabPointsControle.forEach(element => {
+        miseAJour(chargeDrawAll(element, methode));//affiche la courbe            
+    });
+    initializationDragging(false);//met en place le dragging
+    setupAffichagePoints();//affiche les coordonnées des points
+
+    unCheckAll(99);
+});
+
+document.getElementById("printConsole").addEventListener("click",(event)=>{//fonction d'ajout d'une nouvelle courbe
+    let string = "";
+    string += "let tabPointControle = new Array;";
+    for(let i = 0; i < tabPointsControle.length; i++){
+        string += "let pointsControle"+(i+1)+" = new Array;";
+        for(let j = 0; j < tabPointsControle[i].length; j++){
+            string += "pointsControle"+(i+1)+".push(new THREE.Vector3("+tabPointsControle[i][j].x+","+tabPointsControle[i][j].y+",0));";
+        }
+        string += "tabPointControle.push(pointsControle"+(i+1)+");";
+    }
+    console.log(string);
+});
+
 document.getElementById("courbe1").addEventListener("click",(event)=>{//event listener pour sélectionner les courbes
     if(document.getElementById('courbe1').checked) {//si la courbe est coché sseulemnt pour permettre de la décocher
         IDSelectedCurve = 0;//mets en place la variable donnant la courbe courante
@@ -106,57 +133,4 @@ document.getElementById("courbe3").addEventListener("click",(event)=>{//event li
         unCheckAll(3);//décoche toutes les autres
     }
     refresh(document.getElementById('courbe3').checked);//met à jour le graph
-});
-
-document.getElementById("validerOrdre").addEventListener("click", (e) => {
-    e.preventDefault();
-   const ordre = document.getElementById("ordre").value;
-   if(Number(ordre)>0){
-       degre = Number(ordre-1);
-       majAffichagePoints();
-       majGraphique();
-   }else{
-         alert("Veuillez entrer un ordre > 1");
-   }
-});
-
-document.getElementById("curseurX").addEventListener("mousemove",(event)=>{//fonction de translation sur x
-    transX = -transX;
-    tabPointsControle[IDSelectedCurve] = translation("x",transX, tabPointsControle[IDSelectedCurve]);//remet à zero la translation
-    transX = (document.getElementById("curseurX").value - 500)/100;
-    tabPointsControle[IDSelectedCurve] = translation("x",transX, tabPointsControle[IDSelectedCurve]);//applique la nouvelle translation
-
-    scene = new THREE.Scene();//création d'une nouvelle scène
-    scene.add(configPlane());//ajout du plan des points à la scène
-    renderer.render(scene, camera);//render de la scene
-    miseAJour(chargeDraw(tabPointsControle[IDSelectedCurve], methode));//affiche la courbe
-    initializationDragging(false);//met en place le dragging
-    setupAffichagePoints();//affiche les coordonnées des points
-});
-document.getElementById("curseurY").addEventListener("mousemove",(event)=>{//fonction de translation sur y
-    transY = -transY;
-    tabPointsControle[IDSelectedCurve] = translation("y",transY, tabPointsControle[IDSelectedCurve]);//remet à zero la translation
-    transY = (document.getElementById("curseurY").value - 250)/100;
-    tabPointsControle[IDSelectedCurve] = translation("y",transY, tabPointsControle[IDSelectedCurve]);//applique la nouvelle translation
-
-    scene = new THREE.Scene();//création d'une nouvelle scène
-    scene.add(configPlane());//ajout du plan des points à la scène
-    renderer.render(scene, camera);//render de la scene
-    miseAJour(chargeDraw(tabPointsControle[IDSelectedCurve], methode));//affiche la courbe
-    initializationDragging(false);//met en place le dragging
-    setupAffichagePoints();//affiche les coordonnées des points
-});
-
-document.getElementById("curseurRot").addEventListener("mousemove",(event)=>{//fonction de rotation sur x
-    angle = -angle;
-    tabPointsControle[IDSelectedCurve] = rotation(angle, tabPointsControle[IDSelectedCurve]);//remise à zero de la rotaion
-    angle = Math.PI * (document.getElementById("curseurRot").value)/100;
-    tabPointsControle[IDSelectedCurve] = rotation(angle, tabPointsControle[IDSelectedCurve]);//application de la nouvelle rotation
-
-    scene = new THREE.Scene();//création d'une nouvelle scène
-    scene.add(configPlane());//ajout du plan des points à la scène
-    renderer.render(scene, camera);//render de la scene
-    miseAJour(chargeDraw(tabPointsControle[IDSelectedCurve], methode));//affiche la courbe
-    initializationDragging(false);//met en place le dragging
-    setupAffichagePoints();//affiche les coordonnées des points
 });

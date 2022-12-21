@@ -9,8 +9,8 @@
     <body>
         <div id="bottom">
             <div>
-                <button id="base">Base</button>
-                <button id="boor">Boor</button>
+                <button id="bernstein">Berstein</button>
+                <button id="decasteljau">Decasteljau</button>
             </div>
             <form id="formCheckboxes">
                 <input type="checkbox" id="courbe1" name="Courbe 1">
@@ -20,30 +20,14 @@
                 <input type="checkbox" id="courbe3" name="Courbe 3">
                 <label id="select3" for="courbe3">Courbe 3</label>
             </form>
-            <form>
-                <label for="ordre">Ordre (degré+1)</label><input id="ordre" placeholder="Ordre (degré+1)">
-                <button id="validerOrdre">Valider</button>
-            </form>
             <div>
                 <button id="new">Nouvelle courbe</button>
+                <button id="all">Afficher toutes les courbes</button>
+                <button id="printConsole">Imprimer les points de controle</button>
             </div>
         </div>
 
         <div id="points"></div>
-
-        <div id="curseurs">
-            <input type="range" id="curseurX" name="curseurX"
-                   min="0" max="1000">
-            <label for="curseurX">X</label>
-
-            <input type="range" id="curseurY" name="curseurY"
-                   min="0" max="500">
-            <label for="curseurY">Y</label>
-
-            <input type="range" id="curseurRot" name="curseurRot"
-                   min="0" max="200">
-            <label for="curseurRot">Rotation</label>
-        </div>
 
 <!--        on place l'image de la poubelle en absolute au dessus du graphique car impossible de charger-->
 <!--        une texture sur une mesh dans threejs en front-end uniquement, on a des CORS policy errors-->
@@ -52,13 +36,13 @@
 
         <script src="lib/three.js"></script>
         <script src="js/maj.js"></script>
-        <script src="js/creationCourbeBoor.js"></script>
-        <script src="js/creationCourbeBase.js"></script>
+        <script src="js/creationCourbeBernstein.js"></script>
+        <script src="js/creationCourbeDecasteljau.js"></script>
         <script src="js/drag&drop.js"></script>
         <script src="lib/DragControls.js"></script>
         <script src="js/affichagePoints.js"></script>
         <script src="js/affichageEx.js"></script>
         <script src="js/transformations.js"></script>
-        <script src="js/courbesBSplines.js"></script>
+        <script src="js/courbesBezier.js"></script>
     </body>
 </html>

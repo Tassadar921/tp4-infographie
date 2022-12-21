@@ -26,19 +26,8 @@ let planeID;
 //indice de la ligne de tabPointsControle correspondant à la courbe affichée
 let IDSelectedCurve = 0;
 
-let degre = 3;
-document.getElementById("ordre").value = degre;
-
-//remise à zero de tous les angles et translations
-let angle = 0;
-let transX = 0;
-let transY = 0;
-document.getElementById("curseurX").value = 500;
-document.getElementById("curseurY").value = 250;
-document.getElementById("curseurRot").value = 0;
-
 //par défaut bernstein, mais switch avec decasteljau en fonction du bouton cliqué
-let methode = "base";
+let methode = "bernstein";
 
 //on ajoute le plan contenant les points draggable à la scène
 scene.add(configPlane());
@@ -51,29 +40,13 @@ setupAffichagePoints();
 unCheckAll(1);
 
 //on construit un tableau contenant sur chaque ligne les 3 courbes de l'énoncé
+
+
 function initialisationCourbes() {
-    let pointsControle1 = new Array;
-    pointsControle1.push(new THREE.Vector3(0,0,0));
-    pointsControle1.push(new THREE.Vector3(0,1,0));
-    pointsControle1.push(new THREE.Vector3(1,1,0));
-    pointsControle1.push(new THREE.Vector3(1,0,0));
-    
-    let pointsControle2 = new Array;
-    pointsControle2.push(new THREE.Vector3(0,0,0));
-    pointsControle2.push(new THREE.Vector3(1,0,0));
-    pointsControle2.push(new THREE.Vector3(0,1,0));
-    pointsControle2.push(new THREE.Vector3(1,1,0));
-    
-    let pointsControle3 = new Array;
-    pointsControle3.push(new THREE.Vector3(0,0,0));
-    pointsControle3.push(new THREE.Vector3(1,1,0));
-    pointsControle3.push(new THREE.Vector3(0,1,0));
-    pointsControle3.push(new THREE.Vector3(1,0,0));
-    
-    let tabPointControle = new Array;
-    tabPointControle.push(pointsControle1);
-    tabPointControle.push(pointsControle2);
-    tabPointControle.push(pointsControle3);
+    //ajout des courbes print depuis la Console ICI :
+    let tabPointControle = new Array;let pointsControle1 = new Array;pointsControle1.push(new THREE.Vector3(0,0,0));pointsControle1.push(new THREE.Vector3(0,1,0));pointsControle1.push(new THREE.Vector3(1,1,0));pointsControle1.push(new THREE.Vector3(1,0,0));tabPointControle.push(pointsControle1);let pointsControle2 = new Array;pointsControle2.push(new THREE.Vector3(0,0,0));pointsControle2.push(new THREE.Vector3(1,0,0));pointsControle2.push(new THREE.Vector3(0,1,0));pointsControle2.push(new THREE.Vector3(1,1,0));tabPointControle.push(pointsControle2);let pointsControle3 = new Array;pointsControle3.push(new THREE.Vector3(0,0,0));pointsControle3.push(new THREE.Vector3(1,1,0));pointsControle3.push(new THREE.Vector3(0,1,0));pointsControle3.push(new THREE.Vector3(1,0,0));tabPointControle.push(pointsControle3);
 
     return tabPointControle
 }
+
+document.getElementById("ok");
