@@ -10,11 +10,7 @@ function eventListenerAffichagePoint(id){//fonction de création des eventsliste
 
 function unCheckAll(id) {//décoche toutes les courbes sauf celle passé en paramètre
     for(let i = 1; i <= tabPointsControle.length; i++) {
-        if(i != id) {
-            document.getElementById('courbe'+i).checked = false;
-        } else {
-            document.getElementById('courbe'+i).checked = true;
-        }
+        document.getElementById('courbe' + i).checked = i === id;
     }
 }
 
@@ -25,7 +21,7 @@ refresh = (checked) => {//met à jour l'affichage et si ui ou non une courbe est
     scene = new THREE.Scene();//création d'une nouvelle scène
     scene.add(configPlane());//ajout du plan des points à la scène
     renderer.render(scene, camera);//render de la scene
-    if(checked) {//si la courbe n'est pas coché ne l'affiche pas
+    if(checked) {//si la courbe n'est pas cochée ne l'affiche pas
         miseAJour(chargeDraw(tabPointsControle[IDSelectedCurve], methode));//affiche la courbe
         initializationDragging(false);//met en place le dragging
     }
@@ -52,6 +48,11 @@ document.getElementById("decasteljau").addEventListener("click",(event)=>{
     refresh(true);//refresh pour afficher correctement
 });
 
+document.getElementById("displayPoints").addEventListener("mouseup",() => {
+    majGraphique();
+    majAffichagePoints();
+});
+
 document.getElementById("new").addEventListener("click",(event)=>{//fonction d'ajout d'une nouvelle courbe
     nbCourbes++;//augmentation du nombre de courbe
         
@@ -61,17 +62,17 @@ document.getElementById("new").addEventListener("click",(event)=>{//fonction d'a
     tmp.push(new THREE.Vector3(1,1,0));
     tabPointsControle.push(tmp)//création de trois points pour pouvoir avoir une courbe
 
-    let clone1 = document.getElementById("courbe1").cloneNode();//clonage de champs éxistant pour plus de simplicité
+    let clone1 = document.getElementById("courbe1").cloneNode();//clonage de champs existant pour plus de simplicité
     let clone2 = document.getElementById("select1").cloneNode();
 
     clone1.setAttribute("id","courbe" + nbCourbes);
-    clone1.setAttribute("name","courbe " + nbCourbes);
-    document.getElementById("formCheckboxes").appendChild(clone1);//mise à jour des informations de clones
+    clone1.setAttribute("name","Courbe " + nbCourbes);
+    document.getElementById("formCheckboxes").appendChild(clone1);//mise à jour des informations de clone
 
     clone2.setAttribute("id","select" + nbCourbes);
-    clone2.setAttribute("for","courbe" + nbCourbes);
+    clone2.setAttribute("for","Courbe" + nbCourbes);
     clone2.innerHTML = "courbe " + nbCourbes;
-    document.getElementById("formCheckboxes").appendChild(clone2);//mise à jour des informations de clones
+    document.getElementById("formCheckboxes").appendChild(clone2);//mise à jour des informations de clone
 
 
     eventListenerAffichagePoint((nbCourbes));//création des évent listeners pour les clones

@@ -79,7 +79,7 @@ let deletePoint = (id) => {
         setupAffichagePoints();
         updateAfterMovementInTabPointsControle();
     } else {//on ne peut pas avoir moins de 3 points de contrôle
-        alert("Il n'y a pas assez de point pour en suprimer");
+        alert("Il n'y a pas assez de point pour en supprimer");
     }
 }
 

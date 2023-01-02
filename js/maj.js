@@ -17,21 +17,14 @@ function chargeDraw(pointsControle, methode, addingPoint = false) {
 
     let drawings = [];//tableau dont les éléments seront ajoutés 1 à 1 dans la scène
 
-    ////////////////////////// LIGNES ENTRE POINTS DE CONTROLE /////////////////////////////
-
-    geometry = new THREE.BufferGeometry().setFromPoints(pointsControle);  // on set le buffer depuis les points de contrôle
-    drawing = new THREE.Line(geometry, material2); // on relie les points grâce à .Line de façon à dessiner la courbe paramétrique
-    drawings.push(drawing);//il sera mis dans la scène plus tard
-
     ////////////////////////// POINTS DE CONTROLE /////////////////////////////
-
     //ils seront par la suite tous draggable
     for (let i = 0; i < pointsControle.length; i++) {//pour chaque point de contrôle
 
         //2 cas :
         // - on est en train d'afficher une nouvelle courbe (condition 1)
-        // - on est en train d'ajouter un point ) la courbe déjà affichée (condition 2)
-        if ((scene.getObjectById(planeID).children.length < pointsControle.length && !addingPoint) || (addingPoint && i===pointsControle.length-1)) {
+        // - on est en train d'ajouter un point à la courbe déjà affichée (condition 2)
+        if ((scene.getObjectById(planeID).children.length < pointsControle.length && !addingPoint) || (addingPoint && i === pointsControle.length - 1)) {
 
             //on va ici les mettre chacun dans un tableau différent pour pouvoir les drag indépendamment les uns des autres
             const vertices = [];
@@ -55,11 +48,10 @@ function chargeDraw(pointsControle, methode, addingPoint = false) {
         }
     }
 
-    ////////////////////////// LIGNES ENTRE POINTS DE CONTROLE /////////////////////////////
+    ////////////////////////// POINTS DECASTELJAU OU BERNSTEIN /////////////////////////////
 
-    geometry = new THREE.BufferGeometry().setFromPoints(points);  // on set le buffer depuis les points retournés par
-    //Decasteljau ou Bernstein
-    drawing = new THREE.Line(geometry, material); // on relie les points grâce à .Line de façon à dessiner la courbe paramétrique
+    geometry = new THREE.BufferGeometry().setFromPoints(points);  // on set le buffer depuis les points retournés par Decasteljau ou Bernstein
+    drawing = new THREE.Line(geometry, material); // on relie les points grâce à Line de façon à dessiner la courbe paramétrique
     drawings.push(drawing);//il sera mis dans la scène plus tard
 
     return drawings;
@@ -126,7 +118,7 @@ configPlane = () => {
 majGraphique = (addingPoint = false) => {
     clearSceneChildren();
     miseAJour(chargeDraw(tabPointsControle[IDSelectedCurve], methode, addingPoint));
-}
+};
 
 //retourne une couleur aléatoire
 function randomColor() {

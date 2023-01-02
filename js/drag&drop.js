@@ -1,4 +1,5 @@
 //booléen détectant si le curseur est au dessus de la poubelle pour delete les points de façon graphique
+//booléen détectant si le curseur est au dessus de la poubelle pour delete les points de façon graphique
 let onTrash = false;
 
 //save des coordonnées initiales du point en train d'être drag
@@ -40,8 +41,8 @@ initializationDragging = (first) => {
         tabPointsControle[IDSelectedCurve][e.object.userData.id].x = e.object.geometry.attributes.position.array[0] + position.x;
         tabPointsControle[IDSelectedCurve][e.object.userData.id].y = e.object.geometry.attributes.position.array[1] + position.y;
         //on fait toutes les updates graphiques
-        majAffichagePoints();
         majGraphique();
+        majAffichagePoints();
     });
 
     //trigger quand on lâche le point qui était en train d'être drag
