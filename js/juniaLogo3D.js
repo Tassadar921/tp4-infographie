@@ -16,6 +16,16 @@ controls.mouseButtons = {
     RIGHT: THREE.MOUSE.ROTATE,
     LEFT: THREE.MOUSE.PAN
 };
+controls.update();
+
+function animate() {
+    requestAnimationFrame( animate );
+    //controls.update();
+    renderer.render(scene,camera);
+}
+
+setInterval(animate,1000 / 60 );
+
 
 //puis la scène
 let scene = new THREE.Scene();
