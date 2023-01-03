@@ -20,7 +20,7 @@ function createBernstein(pointsControle) {
                 x = x + pointsControle[i].x * Bern;//courbe de bezier sur x
                 y = y + pointsControle[i].y * Bern;//courbe de bezier sur y
             }
-            courbe.push(new THREE.Vector3(x,y,0));//ajout des points à la courbe
+            courbe.push(new THREE.Vector2(x,y));//ajout des points à la courbe
         }
        
         return courbe;//on retourne tous les points de la courbe

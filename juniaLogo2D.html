@@ -7,6 +7,9 @@
         <link href="style/style.css" rel="stylesheet" type="text/css">
     </head>
     <body>
+        <div id="message">
+            <p>On est désolés madame, on ne sait pas dessiner (aucun esprit artistique par ici)</p>
+        </div>
         <div id="bottom">
             <div>
                 <button id="bernstein">Berstein</button>
@@ -15,16 +18,10 @@
             <form id="formCheckboxes">
                 <input type="checkbox" id="courbe1" name="Courbe 1">
                 <label id="select1" for="courbe1">Courbe 1</label>
-                <input type="checkbox" id="courbe2" name="Courbe 2">
-                <label id="select2" for="courbe2">Courbe 2</label>
-                <input type="checkbox" id="courbe3" name="Courbe 3">
-                <label id="select3" for="courbe3">Courbe 3</label>
             </form>
             <div>
-                <button id="new">Nouvelle courbe</button>
                 <button id="all">Afficher toutes les courbes</button>
                 <label for="displayPoints">Afficher les points de contrôle</label><input type="checkbox" id="displayPoints"></input>
-                <button id="printConsole">Imprimer les points de controle</button>
             </div>
         </div>
 
@@ -36,14 +33,13 @@
         <img src="img/trash.png" id="trash" alt="Trash">
 
         <script src="lib/three.js"></script>
+        <script src="lib/DragControls.js"></script>
         <script src="js/maj.js"></script>
         <script src="js/creationCourbeBernstein.js"></script>
         <script src="js/creationCourbeDecasteljau.js"></script>
-        <script src="js/drag&drop.js"></script>
-        <script src="lib/DragControls.js"></script>
         <script src="js/affichagePoints.js"></script>
         <script src="js/affichageEx.js"></script>
         <script src="js/transformations.js"></script>
-        <script src="js/courbesBezier.js"></script>
+        <script src="js/juniaLogo2D.js"></script>
     </body>
 </html>

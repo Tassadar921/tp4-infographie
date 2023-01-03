@@ -50,10 +50,17 @@ function chargeDraw(pointsControle, methode, addingPoint = false) {
 
     ////////////////////////// POINTS DECASTELJAU OU BERNSTEIN /////////////////////////////
 
-    geometry = new THREE.BufferGeometry().setFromPoints(points);  // on set le buffer depuis les points retournés par Decasteljau ou Bernstein
-    drawing = new THREE.Line(geometry, material); // on relie les points grâce à Line de façon à dessiner la courbe paramétrique
-    drawings.push(drawing);//il sera mis dans la scène plus tard
+    // geometry = new THREE.BufferGeometry().setFromPoints(points);  // on set le buffer depuis les points retournés par Decasteljau ou Bernstein
+    // drawing = new THREE.Line(geometry, material); // on relie les points grâce à Line de façon à dessiner la courbe paramétrique
+    // drawings.push(drawing);//il sera mis dans la scène plus tard
 
+    let shape = new THREE.Shape(points);
+    const extrudeSettings = { depth: 3};
+    geometry = new THREE.ExtrudeGeometry(shape, extrudeSettings);
+    let mesh = new THREE.Mesh(geometry, new THREE.MeshPhongMaterial());
+    scene.add(mesh);
+
+    console.log(drawings);
     return drawings;
 }
 
@@ -89,6 +96,7 @@ function chargeDrawAll(pointsControle, methode, addingPoint = false) {
 //ajoute chaque élément du array drawings à la scène
 function miseAJour(drawings) {
     drawings.forEach(element => {
+        console.log(element);
         scene.add(element);
     });
     // on fait le rendu
